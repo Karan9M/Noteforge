@@ -3,7 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
-import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import {ViewTransitions} from 'next-view-transitions'
 
 const inter = Inter({
   variable: "--font-inter",
@@ -23,20 +24,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} antialiased`}>
-        <NuqsAdapter>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster position="top-right"/>
-        </ThemeProvider>
-        </NuqsAdapter>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${inter.variable} antialiased`}>
+          <NuqsAdapter>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster position="top-right" />
+            </ThemeProvider>
+          </NuqsAdapter>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
